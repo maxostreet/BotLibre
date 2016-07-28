@@ -20,8 +20,6 @@ package org.botlibre.test;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.botlibre.Bot;
 import org.botlibre.api.knowledge.Network;
 import org.botlibre.api.knowledge.Relationship;
@@ -30,6 +28,8 @@ import org.botlibre.knowledge.Primitive;
 import org.botlibre.self.SelfCompiler;
 import org.botlibre.self.SelfDecompiler;
 import org.botlibre.thought.language.Language;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 
 /**
  * Test the state decompiler.

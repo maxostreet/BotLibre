@@ -33,15 +33,15 @@ public class Calculator extends BasicTool {
 	public Calculator() {
 	}
 	
-	public Vertex plus(Vertex left, Vertex right) {
-		return add(left, right);
+	public Vertex plus(Vertex source, Vertex left, Vertex right) {
+		return add(source, left, right);
 	}
 	
-	public Vertex minus(Vertex left, Vertex right) {
-		return subtract(left, right);
+	public Vertex minus(Vertex source, Vertex left, Vertex right) {
+		return subtract(source, left, right);
 	}
 
-	public Vertex add(Vertex left, Vertex right) {
+	public Vertex add(Vertex source, Vertex left, Vertex right) {
 		Object result = null;
 		if ((left.getData() instanceof BigInteger) && (right.getData() instanceof BigInteger)) {
 			BigInteger leftNumber = (BigInteger)left.getData();
@@ -79,7 +79,7 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(checkInteger(result));
 	}
 
-	public Vertex subtract(Vertex left, Vertex right) {
+	public Vertex subtract(Vertex source, Vertex left, Vertex right) {
 		Object result = null;
 		if ((left.getData() instanceof BigInteger) && (right.getData() instanceof BigInteger)) {
 			BigInteger leftNumber = (BigInteger)left.getData();
@@ -120,7 +120,7 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(checkInteger(result));
 	}
 
-	public Vertex multiply(Vertex left, Vertex right) {
+	public Vertex multiply(Vertex source, Vertex left, Vertex right) {
 		Object result = null;
 		if ((left.getData() instanceof BigInteger) && (right.getData() instanceof BigInteger)) {
 			BigInteger leftNumber = (BigInteger)left.getData();
@@ -158,7 +158,7 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(checkInteger(result));
 	}
 
-	public Vertex divide(Vertex left, Vertex right) {
+	public Vertex divide(Vertex source, Vertex left, Vertex right) {
 		Object result = null;
 		if ((left.getData() instanceof BigInteger) && (right.getData() instanceof BigInteger)) {
 			BigInteger leftNumber = (BigInteger)left.getData();
@@ -228,10 +228,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(checkInteger(result));
 	}
 
-	public Vertex power(Vertex left, Vertex right) {
+	public Vertex power(Vertex source, Vertex left, Vertex right) {
 		if ((left.getData() instanceof Number) && (right.getData() instanceof Number)) {
 			try {
-				double result = Math.pow(((Number)left.getData()).doubleValue(), ((Number)right.getData()).doubleValue());
+				double result = java.lang.Math.pow(((Number)left.getData()).doubleValue(), ((Number)right.getData()).doubleValue());
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);
 				}
@@ -253,10 +253,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 
-	public Vertex sqrt(Vertex left) {
+	public Vertex sqrt(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.sqrt((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.sqrt((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -275,32 +275,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex ln(Vertex left) {
+	public Vertex ln(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.log((((Number)left.getData()).doubleValue()));
-				if (Double.isInfinite(result)) {
-					return left.getNetwork().createVertex(Primitive.INFINITY);				
-				}
-				BigDecimal decimal = BigDecimal.valueOf(result);
-				return left.getNetwork().createVertex(checkInteger(decimal));
-			} catch (Exception failed) {
-				return left.getNetwork().createVertex(Primitive.UNDEFINED);
-			}
-		}
-		if (left.is(Primitive.UNDEFINED)) {
-			return left;
-		}
-		if (left.is(Primitive.INFINITY) || left.is(Primitive.NINFINITY)) {
-			return left.getNetwork().createVertex(Primitive.INFINITY);
-		}
-		return left.getNetwork().createVertex(Primitive.NULL);
-	}
-	
-	public Vertex log(Vertex left) {
-		if ((left.getData() instanceof Number)) {
-			try {
-				double result = Math.log10((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.log((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -319,10 +297,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex round(Vertex left) {
+	public Vertex log(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.round((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.log10((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -341,10 +319,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex floor(Vertex left) {
+	public Vertex round(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.floor((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.round((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -363,10 +341,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex ceil(Vertex left) {
+	public Vertex floor(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.ceil((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.floor((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -385,10 +363,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex abs(Vertex left) {
+	public Vertex ceil(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.abs((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.ceil((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -407,10 +385,32 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex sin(Vertex left) {
+	public Vertex abs(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.sin((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.abs((((Number)left.getData()).doubleValue()));
+				if (Double.isInfinite(result)) {
+					return left.getNetwork().createVertex(Primitive.INFINITY);				
+				}
+				BigDecimal decimal = BigDecimal.valueOf(result);
+				return left.getNetwork().createVertex(checkInteger(decimal));
+			} catch (Exception failed) {
+				return left.getNetwork().createVertex(Primitive.UNDEFINED);
+			}
+		}
+		if (left.is(Primitive.UNDEFINED)) {
+			return left;
+		}
+		if (left.is(Primitive.INFINITY) || left.is(Primitive.NINFINITY)) {
+			return left.getNetwork().createVertex(Primitive.INFINITY);
+		}
+		return left.getNetwork().createVertex(Primitive.NULL);
+	}
+	
+	public Vertex sin(Vertex source, Vertex left) {
+		if ((left.getData() instanceof Number)) {
+			try {
+				double result = java.lang.Math.sin((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -429,10 +429,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex cos(Vertex left) {
+	public Vertex cos(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.cos((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.cos((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -451,10 +451,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex tan(Vertex left) {
+	public Vertex tan(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.tan((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.tan((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -473,10 +473,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex atan(Vertex left) {
+	public Vertex atan(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.atan((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.atan((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -495,10 +495,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex asin(Vertex left) {
+	public Vertex asin(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.asin((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.asin((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -517,10 +517,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex acos(Vertex left) {
+	public Vertex acos(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.acos((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.acos((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -539,10 +539,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex sinh(Vertex left) {
+	public Vertex sinh(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.sinh((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.sinh((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -561,10 +561,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex cosh(Vertex left) {
+	public Vertex cosh(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.cosh((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.cosh((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
@@ -583,10 +583,10 @@ public class Calculator extends BasicTool {
 		return left.getNetwork().createVertex(Primitive.NULL);
 	}
 	
-	public Vertex tanh(Vertex left) {
+	public Vertex tanh(Vertex source, Vertex left) {
 		if ((left.getData() instanceof Number)) {
 			try {
-				double result = Math.tanh((((Number)left.getData()).doubleValue()));
+				double result = java.lang.Math.tanh((((Number)left.getData()).doubleValue()));
 				if (Double.isInfinite(result)) {
 					return left.getNetwork().createVertex(Primitive.INFINITY);				
 				}
